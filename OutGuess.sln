@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OutGuess", "OutGuess.csproj", "{A9FAF458-D333-4D96-A7A9-98A389FE26EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9FAF458-D333-4D96-A7A9-98A389FE26EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9FAF458-D333-4D96-A7A9-98A389FE26EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9FAF458-D333-4D96-A7A9-98A389FE26EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9FAF458-D333-4D96-A7A9-98A389FE26EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35C0B768-2125-407B-9BF0-D9BFF44E931D}
+	EndGlobalSection
+EndGlobal
