@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\MCA-20\\source\\repos\\OutGuess\\OutGuess.csproj",
+      "projectUniqueName": "C:\\Users\\MCA-20\\Documents\\GitHub\\OutGuess\\OutGuess.csproj",
       "projectName": "OutGuess",
-      "projectPath": "C:\\Users\\MCA-20\\source\\repos\\OutGuess\\OutGuess.csproj",
+      "projectPath": "C:\\Users\\MCA-20\\Documents\\GitHub\\OutGuess\\OutGuess.csproj",
       "packagesPath": "C:\\Users\\MCA-20\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\MCA-20\\source\\repos\\OutGuess\\obj\\",
+      "outputPath": "C:\\Users\\MCA-20\\Documents\\GitHub\\OutGuess\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\MCA-20\\AppData\\Roaming\\NuGet\\NuGet.Config",

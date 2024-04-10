@@ -28,7 +28,7 @@
                     if (input == "CPU") {
                         isCPU = !isCPU;
                     } else if (input == "FUNCTION") {
-                        Console.WriteLine("            Execute Function:            \n╔═══════════════════════════════════════╗\n║ 1) TextBox             | 6) FakeCrash ║\n║ 2) Portraits           | 7)           ║\n║ 3) WinnerText          | 8)           ║\n║ 4) DisplayNumbers      | 9)           ║\n║ 5) LoudIncorrectBuzzer | 0)           ║\n╚═══════════════════════════════════════╝\n");
+                        Console.WriteLine("            Execute Function:            \n╔═════════════════════════════════════════════╗\n║ 1) TextBox             | 6) FakeCrash       ║\n║ 2) Portraits           | 7) BoxRefreshStats ║\n║ 3) WinnerText          | 8)                 ║\n║ 4) DisplayNumbers      | 9)                 ║\n║ 5) LoudIncorrectBuzzer | 0)                 ║\n╚═════════════════════════════════════════════╝\n");
                         Console.Write("> ");
                         Console.CursorVisible = true;
                         input = Console.ReadLine().ToUpper();
@@ -71,6 +71,18 @@
                             Console.WriteLine();
                             FakeCrash(vB);
                         } else if (input == "7") {
+                            Console.Write("> ");
+                            Console.CursorVisible = true;
+                            vI = int.Parse(Console.ReadLine());
+                            Console.CursorVisible = false;
+                            Console.WriteLine();
+                            Console.Write("> ");
+                            Console.CursorVisible = true;
+                            int vI2 = int.Parse(Console.ReadLine());
+                            Console.CursorVisible = false;
+                            Console.WriteLine();
+                            BoxRefreshStats(vI, vI2);
+                            Thread.Sleep(5000);
                         } else if (input == "8") {
                         } else if (input == "9") {
                         } else if (input == "0") {
@@ -94,7 +106,22 @@
                     }
                     OutGuess(isCPU, difficulty);
                 } else if (input == "ADDENDUM") {
-                    OutGuessAdd(false, 1);
+                    Console.WriteLine("    Select a Difficulty:    \n╔══════╗ ╔════════╗ ╔══════╗\n║ Easy ║ ║ Normal ║ ║ Hard ║\n╚══════╝ ╚════════╝ ╚══════╝\n");
+                    Console.Write("> ");
+                    Console.CursorVisible = true;
+                    input = Console.ReadLine().ToUpper();
+                    Console.CursorVisible = false;
+                    Console.WriteLine();
+                    if (input == "EASY") {
+                        difficulty = 0;
+                    } else if (input == "NORMAL") {
+                        difficulty = 1;
+                    } else if (input == "HARD") {
+                        difficulty = 2;
+                    } else {
+                        difficulty = 1;
+                    }
+                    OutGuessAdd(isCPU, difficulty);
                 }
             }
             static void OutGuess(bool isCPU, byte difficulty) {
@@ -407,88 +434,253 @@
                 BoxRefresh();
                 Dialogue("Now that everyone has been introduced, lets begin...", 40, 2);
                 Thread.Sleep(3000);
-                bool isValid = false;
-                string input = "";
-                int PlayerMoney = 0;
-                int CirnoMoney = 0;
-                int GokuMoney = 0;
-                for (int i = 0; i < 3; i++) {
-                    BoxRefresh();
-                    if (i == 0) {
-                        Dialogue("You Watanabe! Please place forward your money to the table, place between $1 - $333.", 40, 2);
-                    } else if (i == 1) {
-                        Dialogue("Cirno Fumo! Please place forward your money to the table, place between $1 - $333.", 40, 2);
-                    } else {
-                        Dialogue("Son Goku! Please place forward your money to the table, place between $1 - $333.", 40, 2);
-                    }
-                    Thread.Sleep(1500);
-                    Dialogue("INPUT HERE: ", 40, 11);
-                    if (i == 0) {
-                        Console.CursorVisible = true;
-                        input = Console.ReadLine();
-                        Console.CursorVisible = false;
-                        isValid = Validation(input);
-                        if (!isValid) {
-                            PlayerMoney = 0;
-                            BoxRefresh();
-                            Dialogue("Since you wanna be so funny, you put NO MONEY!", 40, 2);
-                            Thread.Sleep(1500);
-                            BoxRefresh();
-                            Numbers(PlayerMoney);
-                            Dialogue("ZERO!!!!!", 40, 2);
-                            Thread.Sleep(2000);
+                bool isWin = false;
+                while (!isWin) {
+                    bool isValid = false;
+                    string input = "";
+                    int PlayerMoney = 0;
+                    int CirnoMoney = 0;
+                    int GokuMoney = 0;
+                    for (int i = 0; i < 3; i++) {
+                        BoxRefresh();
+                        if (i == 0) {
+                            Dialogue("You Watanabe! Please place forward your money to the table, place between $1 - $333.", 40, 2);
+                        } else if (i == 1) {
+                            Dialogue("Cirno Fumo! Please place forward your money to the table, place between $1 - $333.", 40, 2);
                         } else {
-                            PlayerMoney = int.Parse(input);
-                            if (PlayerMoney >= 334) {
-                                PlayerMoney = 333;
-                                BoxRefresh();
-                                Dialogue("You gave a little too much, i capped it at 333 for you.", 40, 2);
-                                Thread.Sleep(1500);
+                            Dialogue("Son Goku! Please place forward your money to the table, place between $1 - $333.", 40, 2);
+                        }
+                        Thread.Sleep(1500);
+                        Dialogue("INPUT HERE: ", 40, 11);
+                        if (i == 0) {
+                            if (isCPU) {
+                                Random rando = new Random();
+                                PlayerMoney = rando.Next(1, 333);
+                                Console.CursorVisible = true;
+                                input = PlayerMoney.ToString();
+                                Thread.Sleep(2500);
+                                Typing($"{PlayerMoney}", 52, 11);
+                                Console.CursorVisible = false;
                                 BoxRefresh();
                                 Numbers(PlayerMoney);
                                 Thread.Sleep(2000);
-                            } else if (PlayerMoney <= 0) {
-                                PlayerMoney = 1;
-                                BoxRefresh();
-                                Dialogue("Are you like, broke or something? Ungh fine... Have one dollar...", 40, 2);
-                                Thread.Sleep(1500);
+                            } else {
+                                Console.CursorVisible = true;
+                                input = Console.ReadLine();
+                                Console.CursorVisible = false;
+                                isValid = Validation(input);
+                                if (!isValid) {
+                                    PlayerMoney = 0;
+                                    BoxRefresh();
+                                    Dialogue("Since you wanna be so funny, you put NO MONEY!", 40, 2);
+                                    Thread.Sleep(1500);
+                                    BoxRefresh();
+                                    Numbers(PlayerMoney);
+                                    Dialogue("ZERO!!!!!", 40, 2);
+                                    Thread.Sleep(2000);
+                                } else {
+                                    PlayerMoney = int.Parse(input);
+                                    if (PlayerMoney >= 334) {
+                                        PlayerMoney = 333;
+                                        BoxRefresh();
+                                        Dialogue("You gave a little too much, i capped it at 333 for you.", 40, 2);
+                                        Thread.Sleep(1500);
+                                        BoxRefresh();
+                                        Numbers(PlayerMoney);
+                                        Thread.Sleep(2000);
+                                    } else if (PlayerMoney <= 0) {
+                                        PlayerMoney = 1;
+                                        BoxRefresh();
+                                        Dialogue("Are you like, broke or something? Ungh fine... Have one dollar...", 40, 2);
+                                        Thread.Sleep(1500);
+                                        BoxRefresh();
+                                        Numbers(PlayerMoney);
+                                        Thread.Sleep(2000);
+                                    }
+                                }
                                 BoxRefresh();
                                 Numbers(PlayerMoney);
                                 Thread.Sleep(2000);
                             }
+                        } else if (i == 1) {
+                            CirnoMoney = CPUMoney(PlayerMoney);
+                            Console.CursorVisible = true;
+                            input = CirnoMoney.ToString();
+                            Thread.Sleep(2500);
+                            Typing($"{CirnoMoney}", 52, 11);
+                            Console.CursorVisible = false;
                             BoxRefresh();
-                            Numbers(PlayerMoney);
+                            Numbers(CirnoMoney);
+                            Thread.Sleep(2000);
+                        } else {
+                            GokuMoney = CPUMoney(PlayerMoney);
+                            Console.CursorVisible = true;
+                            input = GokuMoney.ToString();
+                            Thread.Sleep(2500);
+                            Typing($"{GokuMoney}", 52, 11);
+                            Console.CursorVisible = false;
+                            BoxRefresh();
+                            Numbers(GokuMoney);
                             Thread.Sleep(2000);
                         }
-                    } else if (i == 1) {
-                        CirnoMoney = CPUMoney(PlayerMoney);
-                        Console.CursorVisible = true;
-                        input = CirnoMoney.ToString();
-                        Thread.Sleep(2500);
-                        Typing($"{CirnoMoney}", 52, 11);
-                        Console.CursorVisible = false;
-                        BoxRefresh();
-                        Numbers(CirnoMoney);
-                        Thread.Sleep(2000);
-                    } else {
-                        GokuMoney = CPUMoney(PlayerMoney);
-                        Console.CursorVisible = true;
-                        input = GokuMoney.ToString();
-                        Thread.Sleep(2500);
-                        Typing($"{GokuMoney}", 52, 11);
-                        Console.CursorVisible = false;
-                        BoxRefresh();
-                        Numbers(GokuMoney);
-                        Thread.Sleep(2000);
                     }
+                    BoxRefresh();
+                    Dialogue("Awesome! Now that everyone has added their money were gonna add it all up!", 40, 2);
+                    Thread.Sleep(3000);
+                    int Vault = PlayerMoney + CirnoMoney + GokuMoney;
+                    BoxRefresh();
+                    Numbers(Vault);
+                    Thread.Sleep(3000);
+                    Random random = new Random();
+                    input = "";
+                    string name = "";
+                    isValid = false;
+                    bool numGuessed = false;
+                    int number = random.Next(1, 100);
+                    byte[] wins = { 0, 0, 0 };
+                    int lowest = 1;
+                    int highest = 100;
+                    int guess = 0;
+                    byte fail = 0;
+                    byte wrog = 0;
+                    byte turn = 1;
+                    int wager = 1;
+                    while (Vault > 0) {
+                        if (numGuessed) {
+                            number = random.Next(1, 100);
+                            lowest = 1;
+                            highest = 100;
+                            numGuessed = false;
+                        }
+                        for (byte z = 0; z < 3; z++) {
+                            BoxRefreshStats(Vault, wager);
+                            if (z == 0) {
+                                wrog = 0;
+                            } else if (z == 3) {
+                                wrog = 1;
+                            } else if (z == 6) {
+                                wrog = 2;
+                            }
+                            if (z == 0) {
+                                name = "You";
+                            } else if (z == 1) {
+                                name = "Cirno";
+                            } else {
+                                name = "Goku";
+                            }
+                            if (difficulty == 0) {
+                                Dialogue($"Turn {turn}. {name}, plz guess the number between {lowest} - {highest}.", 40, 2);
+                            } else {
+                                Dialogue($"Turn {turn}. {name}, plz guess the number between 1 - 100.", 40, 2);
+                            }
+                            Dialogue("INPUT HERE: ", 40, 11);
+                            if (z == 0 || z == 3 || z == 6) {
+                                if (isCPU) {
+                                    guess = CPUInput(lowest, highest, difficulty, z);
+                                    Console.CursorVisible = true;
+                                    input = guess.ToString();
+                                    Thread.Sleep(2500);
+                                    Typing($"{guess}", 52, 11);
+                                    Console.CursorVisible = false;
+                                } else {
+                                    Console.CursorVisible = true;
+                                    input = Console.ReadLine();
+                                    Console.CursorVisible = false;
+                                    isValid = Validation(input);
+                                    if (!isValid) {
+                                        guess = 0;
+                                        Thread.Sleep(5000);
+                                        fail = FakeCrash(fail);
+                                    } else {
+                                        guess = int.Parse(input);
+                                    }
+                                }
+                            } else {
+                                guess = CPUInput(lowest, highest, difficulty, z);
+                                Console.CursorVisible = true;
+                                input = guess.ToString();
+                                Thread.Sleep(2500);
+                                Typing($"{guess}", 52, 11);
+                                Console.CursorVisible = false;
+                            }
+                            BoxRefreshStats(Vault, wager);
+                            Dialogue($"Alright {name}!    You inputted...", 40, 2);
+                            Thread.Sleep(2000);
+                            BoxRefresh();
+                            Numbers(guess);
+                            Dialogue($"{input}!", 40, 2);
+                            Thread.Sleep(2000);
+                            BoxRefresh();
+                            Numbers(guess);
+                            Dialogue($"Lets see the answer!", 40, 2);
+                            Thread.Sleep(3000);
+                            BoxRefresh();
+                            if (guess == number) {
+                                Dialogue($"..........NO WAY!!! THAT WAS THE CORRECT NUMBER!", 40, 2);
+                                Thread.Sleep(2000);
+                                numGuessed = true;
+                                turn++;
+                                wins[z]++;
+                                break;
+                            } else {
+                                Thread.Sleep(100);
+                                wrog = LoudIncorrectBuzzer(wrog);
+                                Thread.Sleep(2000);
+                                if (guess <= 0 || guess >= 101) {
+                                    Dialogue($"What you inputted was invalid..", 40, 2);
+                                    Thread.Sleep(1500);
+                                    Dialogue($"Did you input that on purpose??", 40, 4);
+                                    Thread.Sleep(3000);
+                                } else if (guess > number) {
+                                    Dialogue($"The number is too high!!!", 40, 2);
+                                    Thread.Sleep(3000);
+                                    if (difficulty <= 0) {
+                                        if (highest > guess) {
+                                            highest = guess - 1;
+                                        }
+                                    } else if (difficulty == 1) {
+                                        highest = guess;
+                                    } else if (difficulty >= 2) {
+                                        highest = guess - 1;
+                                    }
+                                } else if (guess < number) {
+                                    Dialogue($"The number is too low!!!", 40, 2);
+                                    Thread.Sleep(3000);
+                                    if (difficulty <= 0) {
+                                        if (lowest < guess) {
+                                            lowest = guess + 1;
+                                        }
+                                    } else if (difficulty == 1) {
+                                        lowest = guess;
+                                    } else if (difficulty >= 2) {
+                                        lowest = guess + 1;
+                                    }
+                                }
+                            }
+                            turn++;
+                            Vault -= wager;
+                            if (Vault <= 0) {
+                                Vault = 0;
+                            }
+                        }
+                        wager *= 2;
+                        BoxRefreshStats(Vault, wager);
+                    }
+                    BoxRefreshStats(Vault, wager);
+                    Thread.Sleep(3000);
+                    Dialogue("Looks like theres no more money left, Game Over!", 40, 2);
+                    Thread.Sleep(3000);
+                    Dialogue("Win Stats: ", 40, 4);
+                    Thread.Sleep(1500);
+                    Dialogue($"You Wins: {wins[0]}", 40, 5);
+                    Thread.Sleep(1000);
+                    Dialogue($"Cirno Wins: {wins[1]}", 40, 6);
+                    Thread.Sleep(1000);
+                    Dialogue($"Goku Wins: {wins[2]}", 40, 7);
+                    Thread.Sleep(5000);
+                    Dialogue($"Press any key to play again, or close the game to quit.", 40, 13);
+                    Console.ReadKey();
                 }
-                BoxRefresh();
-                Dialogue("Awesome! Now that everyone has added their money were gonna add it all up!", 40, 2);
-                Thread.Sleep(3000);
-                int Vault = PlayerMoney + CirnoMoney + GokuMoney;
-                BoxRefresh();
-                Numbers(Vault);
-                Thread.Sleep(3000);
             }
             static void ScreenSizeCheck() {
                 Console.Clear();
@@ -585,6 +777,15 @@
                 QuickSizeCheck();
                 TextBox();
                 Sonis();
+            }
+            static void BoxRefreshStats(int Vault, int Wager) {
+                QuickSizeCheck();
+                TextBox();
+                Sonis();
+                Console.SetCursorPosition(143, 17);
+                Console.Write($"Wager/Turn: {Wager}");
+                Console.SetCursorPosition(143,18);
+                Console.Write($"Money Left: {Vault}");
             }
             static void TextBox() {
                 QuickSizeCheck();
