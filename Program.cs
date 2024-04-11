@@ -550,6 +550,9 @@
                             number = random.Next(1, 100);
                             lowest = 1;
                             highest = 100;
+                            if (wager > 1) {
+                                wager /= 2;
+                            }
                             numGuessed = false;
                         }
                         for (byte z = 0; z < 3; z++) {
@@ -672,11 +675,21 @@
                     Thread.Sleep(3000);
                     Dialogue("Win Stats: ", 40, 4);
                     Thread.Sleep(1500);
-                    Dialogue($"You Wins: {wins[0]}", 40, 5);
+                    Dialogue($"You Wins:   {wins[0]}", 40, 5);
                     Thread.Sleep(1000);
                     Dialogue($"Cirno Wins: {wins[1]}", 40, 6);
                     Thread.Sleep(1000);
-                    Dialogue($"Goku Wins: {wins[2]}", 40, 7);
+                    Dialogue($"Goku Wins:  {wins[2]}", 40, 7);
+                    Thread.Sleep(1000);
+                    float YouWins = wins[0];
+                    float CirnoWins = wins[1];
+                    float GokuWins = wins[2];
+                    float Ratio0 = YouWins / (YouWins + CirnoWins + GokuWins);
+                    float Ratio1 = CirnoWins / (YouWins + CirnoWins + GokuWins);
+                    float Ratio2 = GokuWins / (YouWins + CirnoWins + GokuWins);
+                    Dialogue($"You Win Ratio:   {Ratio0}", 40, 9);
+                    Dialogue($"Cirno Win Ratio: {Ratio1}", 40, 10);
+                    Dialogue($"Goku Win Ratio:  {Ratio2}", 40, 11);
                     Thread.Sleep(5000);
                     Dialogue($"Press any key to play again, or close the game to quit.", 40, 13);
                     Console.ReadKey();
@@ -1018,24 +1031,24 @@
             }
             static void Goku() {
                 QuickSizeCheck();
-                string s01 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s02 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s03 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s04 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s05 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s06 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s07 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s08 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s09 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s10 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s11 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s12 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s13 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s14 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s15 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s16 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s17 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s18 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
+                string s01 = "          '\\   '-_                    ";
+                string s02 = "            \\     \\                   ";
+                string s03 = "     __----__\\     \\                  ";
+                string s04 = "   _/               ---_              ";
+                string s05 = " /'           /  _/     \\_--->___     ";
+                string s06 = "<----__      / /'  /'\\           =>   ";
+                string s07 = "       _\\  / \\/  ■/■ / /\\    _--'     ";
+                string s08 = "   _--'  \\ (|■\\■  (o)  E)  _-->       ";
+                string s09 = "  <-----___  \\(o  \"\"\"  E/_->          ";
+                string s10 = "        _<=___\\\"'_\"   / \\             ";
+                string s11 = "               \\__  _/   |            ";
+                string s12 = "                 |''/'   /-__         ";
+                string s13 = "             __-/__<- __--'_------\\   ";
+                string s14 = "        __--/  /__---=  _-  /''    \\  ";
+                string s15 = "      /'  /''''  _/'       /     ___\\ ";
+                string s16 = "     //  /     _/         |   _-'   |'";
+                string s17 = "   /'/ / |   _/  _-    \\  / _/' \\  - \\";
+                string s18 = "   \\/  | \\  /   -       \\ \\      '\\  |";
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.SetCursorPosition(121, 21);
                 Console.Write(s01);
@@ -1077,22 +1090,22 @@
             }
             static void Sonis() {
                 QuickSizeCheck();
-                string s01 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s02 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s03 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s04 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s05 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s06 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s07 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s08 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s09 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s10 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s11 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s12 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s13 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s14 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s15 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
-                string s16 = "■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■";
+                string s01 = "     ///////■■■■■■■■■■■           ";
+                string s02 = "  ///                  ■■■    ///|";
+                string s03 = " /               ■■■      ■■■/   |";
+                string s04 = "/---------__    ■   ■■          ■ ";
+                string s05 = "        ///     ■__---          ■ ";
+                string s06 = "    ////              ----\\     ■_";
+                string s07 = "  //                  |   \\\\      |";
+                string s08 = "//                    |     ■    /";
+                string s09 = "■                     |     ■■ / ■";
+                string s10 = "■__-------            |■    ■■--■■";
+                string s11 = "/       ■■        /----■■■   _---■■";
+                string s12 = "      ■■         | --- ------  ■■■■■";
+                string s13 = "   /■■            \\_ \\--       /  ";
+                string s14 = "  /             ■   \\_________/   ";
+                string s15 = "  |   ___----|  ■■■■/  /     \\    ";
+                string s16 = "  | //     ■■■■■   /  /      |    ";
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.SetCursorPosition(3, 2);
                 Console.Write(s01);
