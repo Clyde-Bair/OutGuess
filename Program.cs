@@ -731,8 +731,8 @@
                 if (MoneyLowest <= 0) {
                     MoneyLowest = 1;
                 }
-                if (MoneyLowest >= 334) {
-                    MoneyLowest = 333;
+                if (MoneyHighest >= 334) {
+                    MoneyHighest = 333;
                 }
                 int MoneyPicker = random.Next(MoneyLowest, MoneyHighest);
                 return MoneyPicker;
